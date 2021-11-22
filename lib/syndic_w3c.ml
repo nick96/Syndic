@@ -112,7 +112,7 @@ let find_warninglist l =
 let to_error {line; column; text; _} = ((line, column), text)
 
 let parse input =
-  let _, xml = XML.of_xmlm input in
+  let xml = XML.of_xmlm input in
   let err =
     match find_errorlist xml with
     | Some (XML.Node (p, t, d)) -> errorlist_of_xml (p, t, d)

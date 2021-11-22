@@ -17,7 +17,10 @@ let input_of_channel fh =
 let of_xmlm input =
   let el tag datas = Node (Xmlm.pos input, tag, datas) in
   let data data = Data (Xmlm.pos input, data) in
-  try Xmlm.input_doc_tree ~el ~data input with Xmlm.Error (pos, e) ->
+  let input = (match Xmlm.peek input with
+    | `Dtd _ -> (Xmlm.input input; input)
+    | _ -> input) in
+  try Xmlm.input_tree ~el ~data input with Xmlm.Error (pos, e) ->
     raise (Error.Error (pos, Xmlm.error_message e))
 
 let get_position = function Node (pos, _, _) -> pos | Data (pos, _) -> pos

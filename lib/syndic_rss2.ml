@@ -937,7 +937,7 @@ let find_channel l =
     l
 
 let parse ?xmlbase input =
-  match XML.of_xmlm input |> snd with
+  match XML.of_xmlm input with
   | XML.Node (pos, tag, data) -> (
       if tag_is tag "channel" then channel_of_xml ~xmlbase (pos, tag, data)
       else
@@ -963,7 +963,7 @@ let read ?xmlbase fname =
 type uri = Uri.t option * string
 
 let unsafe ?xmlbase input =
-  match XML.of_xmlm input |> snd with
+  match XML.of_xmlm input with
   | XML.Node (pos, tag, data) -> (
       if tag_is tag "channel" then
         `Channel (channel_of_xml' ~xmlbase (pos, tag, data))

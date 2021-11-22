@@ -1195,7 +1195,7 @@ let string_of_text_construct = function
 
 let parse ?self ?xmlbase input =
   let feed =
-    match XML.of_xmlm input |> snd with
+    match XML.of_xmlm input with
     | XML.Node (pos, tag, datas) when tag_is tag "feed" ->
         feed_of_xml ~xmlbase (pos, tag, datas)
     | _ ->
@@ -1253,7 +1253,7 @@ let get_self_link feed =
     None
 
 let unsafe ?xmlbase input =
-  match XML.of_xmlm input |> snd with
+  match XML.of_xmlm input with
   | XML.Node (pos, tag, datas) when tag_is tag "feed" ->
       `Feed (feed_of_xml' ~xmlbase (pos, tag, datas))
   | _ -> `Feed []

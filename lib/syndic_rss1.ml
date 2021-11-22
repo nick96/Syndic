@@ -538,7 +538,7 @@ let rdf_of_xml' =
   generate_catcher ~namespaces ~data_producer (fun ~pos:_ x -> x)
 
 let parse ?xmlbase input =
-  match XML.of_xmlm input |> snd with
+  match XML.of_xmlm input with
   | XML.Node (pos, tag, datas) when tag_is tag "RDF" ->
       rdf_of_xml ~xmlbase (pos, tag, datas)
   | _ ->
@@ -556,7 +556,7 @@ let read ?xmlbase fname =
 type uri = Uri.t option * string
 
 let unsafe ?xmlbase input =
-  match XML.of_xmlm input |> snd with
+  match XML.of_xmlm input with
   | XML.Node (pos, tag, datas) when tag_is tag "RDF" ->
       `RDF (rdf_of_xml' ~xmlbase (pos, tag, datas))
   | _ -> `RDF []
